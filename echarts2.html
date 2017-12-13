@@ -1,0 +1,152 @@
+option = {
+    tooltip : {  
+                trigger: 'item',  
+                formatter: "{b} : {c}w {d}%"  
+            },
+    
+    legend: {
+        orient: 'vertical',
+        left: 'left',
+        show: false,
+        data: ['其余部分','出让部分','人员扩充','产品优化','产品推广','其它'],
+        
+        
+    },
+    series : [
+        {
+            name: '融资计划',
+            type: 'pie',
+            radius : '25%',
+            center: ['25%', '50%'],
+             color: ['#c23531','#2f4554'],
+            data:[
+                {value:500, name:'出让部分'},
+                {value:4500, name:'其余部分'}
+            ],
+           
+            itemStyle: {
+                normal: {
+                    label: {
+                        show: true,
+                    position : 'out',
+                formatter : function (params) {                         
+                  return params.name +"\n"+ (params.percent - 0).toFixed(0) + '%'
+                }
+                }
+                },
+            labelLine: { 
+                normal: { 
+                    show: true 
+                }
+            }
+            }
+        }
+    ]
+};
+option1 = {
+    tooltip : {  
+                trigger: 'item',  
+                formatter: "{b} : {c}w {d}%"  
+            },
+    
+    legend: {
+        orient: 'vertical',
+        left: 'left',
+        show: false,
+        data: ['其余部分','出让部分','人员扩充','产品优化','产品推广','其它'],
+        
+        
+    },
+    series : [
+            {
+            name: '出让部分',
+            type: 'pie',
+            show: false,
+            radius : '25%',
+            center: ['75%', '50%'],
+             color: ['#61a0a8','#91c7ae','#c23531','#546570'],
+            data:[
+                {value:100, name:'人员扩充'},
+                {value:100, name:'产品优化'},
+                {value:225, name:'产品推广'},
+                {value:75, name:'其它'}
+            ],
+            itemStyle: {
+                normal: {
+                color:"",
+                label: {
+                show: true,
+                position : 'out',
+                    formatter : function (params) {                         
+                        return params.name +"\n"+ (params.percent - 0).toFixed(0) + '%'
+                    }
+                }
+            },
+            labelLine: { 
+                normal: { 
+                    show: true 
+                }
+            }
+            }
+    },
+]
+};
+
+// 为echarts对象加载数据 
+  //  myChart1 = myChart.setOption(option); 
+      //      myChart.connect([myChart,myChart2]);
+
+ 
+    myChart2 = myChart.setOption(option1);
+
+
+     function everyClick(param,i,option){    
+       // alert(param.seriesIndex);
+     if(param.seriesIndex===0||param.seriesIndex===1){
+           // if(param.name==="出让部分"){
+             //alert(param.seriesId);
+             alert(param.seriesIndex);
+             
+         //   }
+        } 
+     }
+     
+     function everyClick1(param,j,option){    
+       // alert(param.seriesIndex);
+     if(param.seriesIndex===0||param.seriesIndex===1){
+           // if(param.name==="出让部分"){
+             //alert(param.seriesId);
+             alert(param.seriesIndex);
+             
+         //   }
+        } 
+     }
+     
+  
+ 
+  //增加监听事件
+function eConsole(param) {
+        
+    if (typeof param.seriesIndex != 'undefined') {
+
+    if (param.type == 'click') {   
+        var peiLenght= option.legend.data.length;
+        var peiLenght1= option1.legend.data.length;
+    
+        for(var i=0;i<peiLenght;i++){
+            everyClick(param,i,option.legend.data[i])
+        }
+        for(var j=0;j<peiLenght1;j++){
+            everyClick1(param,j,option1.legend.data[j])
+        }
+    }else{
+        document.getElementById('hover-console').innerHTML = 'Event Console : ' + param.dataIndex;
+     //alert();
+    }
+}
+}
+ 
+  myChart1.on("click", eConsole);
+  myChart1.on("hover", eConsole);
+  myChart2.on("click", eConsole);
+  myChart2.on("hover", eConsole);
